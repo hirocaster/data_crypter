@@ -29,7 +29,7 @@ defmodule DataCrypter.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [{:ex_doc, "~> 0.10", only: :dev}]
   end
 
   defp package do
