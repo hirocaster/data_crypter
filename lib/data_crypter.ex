@@ -13,8 +13,8 @@ defmodule DataCrypter do
     validate_key_size(key)
 
     iv = :crypto.strong_rand_bytes(iv_size)
-    {ciphertext, ciphertag} = :crypto.block_encrypt(cipher_type, key, iv, { aad, data})
-    { iv, ciphertext, ciphertag }
+    {ciphertext, ciphertag} = :crypto.block_encrypt(cipher_type, key, iv, {aad, data})
+    {iv, ciphertext, ciphertag}
   end
 
   @spec decrypt(binary, binary, binary, binary, binary, atom) :: binary
