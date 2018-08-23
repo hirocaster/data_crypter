@@ -22,22 +22,22 @@ defmodule DataCrypterTest do
   end
 
   test "#encrypt 256bit key" do
-    {_iv, ciphertext, _ciphertag} = DataCrypter.encrypt(key, aad, plaintext_data)
-    assert ciphertext != plaintext_data
+    {_iv, ciphertext, _ciphertag} = DataCrypter.encrypt(key(), aad(), plaintext_data())
+    assert ciphertext != plaintext_data()
   end
 
   test "#encrypt 128bit key" do
     key_128 = DataCrypter.generate_key(16)
-    {_iv, ciphertext, _ciphertag} = DataCrypter.encrypt(key_128, aad, plaintext_data)
-    assert ciphertext != plaintext_data
+    {_iv, ciphertext, _ciphertag} = DataCrypter.encrypt(key_128, aad(), plaintext_data())
+    assert ciphertext != plaintext_data()
   end
 
   test "Invalid key size at #encrypt" do
     assert_raise ArgumentError, "Invalit key size", fn ->
-      DataCrypter.encrypt("Too short key", aad, plaintext_data)
+      DataCrypter.encrypt("Too short key", aad(), plaintext_data())
     end
     assert_raise ArgumentError, "Invalit key size", fn ->
-      DataCrypter.encrypt("Too loooooooooooooooooooooong key", aad, plaintext_data)
+      DataCrypter.encrypt("Too loooooooooooooooooooooong key", aad(), plaintext_data())
     end
   end
 
@@ -57,11 +57,11 @@ defmodule DataCrypterTest do
     end
 
     test "#decrypt" do
-      assert plaintext_data == DataCrypter.decrypt(key, aad, iv, ciphertext, ciphertag)
+      assert plaintext_data() == DataCrypter.decrypt(key(), aad(), iv(), ciphertext(), ciphertag())
     end
 
     test "Invalid add data" do
-      assert :error == DataCrypter.decrypt(key, "Invalid add", iv, ciphertext, ciphertag)
+      assert :error == DataCrypter.decrypt(key(), "Invalid add", iv(), ciphertext(), ciphertag())
     end
   end
 end
